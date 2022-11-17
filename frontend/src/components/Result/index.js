@@ -32,22 +32,16 @@ const ResultsTable = ({ setGameOn, shootsNumber, isGameFinished }) => {
 
   const [result, setResult] = useState([]);
 
-  let counter = 0;
+  const MINUTE_MS = 1000;
 
   useEffect(() => {
-    counter += 1;
-    async function fetchData() {
-      const response = await api.result();
+      const interval =  setInterval(async () => {
+        const response = await api.result();
+          console.log(response);
+      }, MINUTE_MS);
 
-      if (response.status) {
-        setResult(response.data);
-      } else {
-        console.error("Error occur while fetching result");
-      }
-    }
-
-    fetchData();
-  }, [counter]);
+      return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+  }, []);
 
   console.log("result", result);
 
