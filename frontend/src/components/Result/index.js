@@ -20,6 +20,9 @@ const ResultsTable = ({ setGameOn, shootsNumber, isGameFinished }) => {
   const [goodShoots, setGoodShoots] = useState(0);
   const [badShoots, setBadShoots] = useState(0);
 
+  const [currentResult, setCurrentResult] = useState(0);
+  const [sumShoots, setSumShoots] = useState(0);
+
   // const goodMessages = ["Nice Shoot!", "Wow!", "What a shooter!"];
   // const badMessages = ["Boo :(", "Do not give up!", "Try better next time!"];
 
@@ -29,10 +32,13 @@ const ResultsTable = ({ setGameOn, shootsNumber, isGameFinished }) => {
   const [result] = useResult();
 
   useEffect(() => {
-    if (result) {
-      console.log("result", result);
+    setSumShoots(goodShoots + badShoots);
+    if (sumShoots != shootsNumber) {
+      setCurrentResult(useResult());
     }
   }, [result]);
+
+  console.log("currentResult", currentResult);
 
   useEffect(() => {
     setTimeout(function () {
