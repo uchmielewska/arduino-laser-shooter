@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Container, Heading } from "@chakra-ui/react";
 import GameParameters from "../GameParameters";
 import ResultsTable from "../Result";
+import { startGameApi } from "../../services/utils/gameStart";
 
 const AppLayout = () => {
   const [isGameOn, setGameOn] = useState(false);
@@ -11,6 +12,11 @@ const AppLayout = () => {
 
   const [goodShoots, setGoodShoots] = useState(0);
   const [badShoots, setBadShoots] = useState(0);
+
+  const onGameStart = () => {
+    setGameOn(true);
+    startGameApi(shootsNumber);
+  };
 
   return (
     <Container flexDirection="column" justifyContent="center">
@@ -27,8 +33,7 @@ const AppLayout = () => {
         />
       ) : (
         <GameParameters
-          setGameOn={setGameOn}
-          shootsNumber={shootsNumber}
+          onGameStart={onGameStart}
           setShootsNumber={setShootsNumber}
         />
       )}
