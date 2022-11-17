@@ -5,10 +5,12 @@ const apiBase = axios.create({
 });
 
 const api = {
-  game: () => apiBase.get("/start", { params: { targets: 5 } }),
+  game: ({ targetNumber }) =>
+    apiBase.get("/start", { params: { targets: targetNumber } }),
 
   // deleteRecipe: ({ id }) => apiBase.delete("/recipes", { data: { id } }),
   // recipe: ({ id }) => apiBase.get(`/recipes/${id}`),
+
   // addRecipe: ({ recipeName, recipeBody, ingredients }) =>
   //   apiBase.post("/recipes", {
   //     recipeName,

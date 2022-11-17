@@ -15,7 +15,7 @@ const AppLayout = () => {
 
   const startGame = async () => {
     return api.game({
-      targets: shootsNumber,
+      targetNumber: shootsNumber,
     });
   };
 
