@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Container, Heading } from "@chakra-ui/react";
 import GameParameters from "../GameParameters";
 import ResultsTable from "../Result";
-import { startGameApi } from "../../services/utils/gameStart";
+import api from "../../services/api";
 
 const AppLayout = () => {
   const [isGameOn, setGameOn] = useState(false);

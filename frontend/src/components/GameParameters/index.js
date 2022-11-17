@@ -38,7 +38,7 @@ const GameParameters = ({ startGame, setGameOn, setShootsNumber }) => {
         m="4"
         onClick={() => {
           startGame();
-          setGameOn();
+          setGameOn(true);
         }}
       >
         Start Game
