@@ -14,7 +14,8 @@ import {
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 // import arrayShuffle from "array-shuffle";
-import useResult from "../../services/utils/useResult";
+// import useResult from "../../services/utils/useResult";
+import api from "../../services/api";
 
 const ResultsTable = ({ setGameOn, shootsNumber, isGameFinished }) => {
   const [goodShoots, setGoodShoots] = useState(0);
@@ -29,16 +30,28 @@ const ResultsTable = ({ setGameOn, shootsNumber, isGameFinished }) => {
   const [displayMessage, setDisplayMessage] = useState("Good luck!");
   const [showElement, setShowElement] = useState(true);
 
-  const [result] = useResult();
+  const [result, setResult] = useState([]);
 
   useEffect(() => {
-    setSumShoots(goodShoots + badShoots);
-    if (sumShoots != shootsNumber) {
-      setCurrentResult(useResult());
-    }
-  }, [result, currentResult]);
+    async function fetchData() {
+      const response = await api.result();
 
-  console.log("currentResult", currentResult);
+      if (response.status) {
+        setResult(response.data);
+      } else {
+        console.error("Error occur while fetching result");
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  console.log("result", result);
+  // useEffect(() => {
+  //   if (result) {
+  //     console.log("result", result);
+  //   }
+  // }, [result]);
 
   useEffect(() => {
     setTimeout(function () {
