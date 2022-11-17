@@ -23,7 +23,9 @@ boolean enableShootingTarget(int servoId)
 
     selectedServo.write(SERVO_UP);
 
-    for (int i = 0; i < 2000; i++)
+    int timeToShoot = random(1, 4) * 1000;
+
+    for (int i = 0; i < timeToShoot; i++)
     {
         delay(1);
 
@@ -36,6 +38,8 @@ boolean enableShootingTarget(int servoId)
 
 void gameLoop(int numberOfTargets = 20)
 {
+    delay(1500);
+    
     for (int i = 0; i < numberOfTargets; i++)
     {
         int selectedTarget = random(GREEN, WHITE + 1);
@@ -43,11 +47,13 @@ void gameLoop(int numberOfTargets = 20)
         whiteServo.write(SERVO_DOWN);
         greenServo.write(SERVO_DOWN);
 
-        Serial.println(isTargetHit);
+        Serial.write(isTargetHit);
 
         int targetDelay = random(1, 6) * 1000;
         delay(targetDelay);
     }
+
+    Serial.write('e');
 }
 
 void setup()
@@ -62,14 +68,14 @@ void setup()
 
 void loop()
 {
-    int response;
+    String response;
 
     if (Serial.available() > 0)
     {
-        response = Serial.read();
+        response = Serial.readStringUntil('\n');
 
-        if (response == '2')
-            gameLoop(5);
+        if (response.equals("start"))
+            gameLoop(10);
 
         delay(100);
     }
