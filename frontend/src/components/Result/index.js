@@ -32,7 +32,10 @@ const ResultsTable = ({ setGameOn, shootsNumber, isGameFinished }) => {
 
   const [result, setResult] = useState([]);
 
+  let counter = 0;
+
   useEffect(() => {
+    counter += 1;
     async function fetchData() {
       const response = await api.result();
 
@@ -44,14 +47,9 @@ const ResultsTable = ({ setGameOn, shootsNumber, isGameFinished }) => {
     }
 
     fetchData();
-  }, []);
+  }, [counter]);
 
   console.log("result", result);
-  // useEffect(() => {
-  //   if (result) {
-  //     console.log("result", result);
-  //   }
-  // }, [result]);
 
   useEffect(() => {
     setTimeout(function () {
