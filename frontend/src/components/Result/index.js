@@ -17,12 +17,14 @@ const Result = ({ setGameOn, shootsNumber, userName }) => {
     "Wow!",
     "What a shooter!",
     "Your the best!",
+    "Athens teacher is the best",
   ];
   const badMessages = [
     "Boo :(",
     "Do not give up!",
     "Try better next time!",
     "Your the worst...",
+    "Do not worry! Christmas is comming",
   ];
 
   const [displayMessage, setDisplayMessage] = useState("Good luck!");
