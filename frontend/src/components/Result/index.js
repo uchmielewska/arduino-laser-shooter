@@ -37,6 +37,7 @@ const ResultsTable = ({ setGameOn, shootsNumber, isGameFinished }) => {
         const response = await api.result();
         if (response.status) {
           setResult(response.data);
+          console.log("result", response.data);
         }
       }, MINUTE_MS);
 

@@ -9,6 +9,9 @@ const AppLayout = () => {
   const [isGameFinished, setGameFinished] = useState(false);
 
   const [shootsNumber, setShootsNumber] = useState(15);
+  const [userName, setUserName] = useState("");
+
+  console.log("userName", userName);
 
   const startGame = async () => {
     return api.game({
@@ -30,6 +33,7 @@ const AppLayout = () => {
           setGameOn={setGameOn}
           startGame={startGame}
           setShootsNumber={setShootsNumber}
+          setUserName={setUserName}
         />
       )}
     </Container>

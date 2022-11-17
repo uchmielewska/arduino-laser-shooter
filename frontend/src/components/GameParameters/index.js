@@ -10,7 +10,12 @@ import {
   Input,
 } from "@chakra-ui/react";
 
-const GameParameters = ({ startGame, setGameOn, setShootsNumber }) => {
+const GameParameters = ({
+  startGame,
+  setGameOn,
+  setShootsNumber,
+  setUserName,
+}) => {
   return (
     <Flex
       justifyContent="center"
@@ -20,7 +25,11 @@ const GameParameters = ({ startGame, setGameOn, setShootsNumber }) => {
       <Text my="2" color="pink.600" as="b">
         Enter your name
       </Text>
-      <Input placeholder="Name" size="lg" />
+      <Input
+        placeholder="Name"
+        size="lg"
+        onChange={(e) => setUserName(e.target.value)}
+      />
 
       <Text my="2" color="pink.600" as="b">
         Set number of shoots
@@ -39,7 +48,6 @@ const GameParameters = ({ startGame, setGameOn, setShootsNumber }) => {
           <NumberDecrementStepper />
         </NumberInputStepper>
       </NumberInput>
-
       <Button
         m="4"
         onClick={() => {
