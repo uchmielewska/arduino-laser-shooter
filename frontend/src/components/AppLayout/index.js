@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Container, Heading } from "@chakra-ui/react";
 import GameParameters from "../GameParameters";
 import ResultsTable from "../Result";
-import api from "../../services/api";
 
 const AppLayout = () => {
   const [isGameOn, setGameOn] = useState(false);
@@ -12,22 +11,6 @@ const AppLayout = () => {
 
   const [goodShoots, setGoodShoots] = useState(0);
   const [badShoots, setBadShoots] = useState(0);
-
-  const startGame = async () => {
-    return api.game({
-      shootsNumber,
-    });
-  };
-
-  //   const fetchRecipes = async () => {
-  //     const response = await api.recipes();
-
-  //     if (response.status) {
-  //       setRecipes(response.data);
-  //     } else {
-  //       console.error("Error occur while fetching recipes");
-  //     }
-  //   };
 
   return (
     <Container flexDirection="column" justifyContent="center">
@@ -47,7 +30,6 @@ const AppLayout = () => {
           setGameOn={setGameOn}
           shootsNumber={shootsNumber}
           setShootsNumber={setShootsNumber}
-          startGame={startGame}
         />
       )}
     </Container>

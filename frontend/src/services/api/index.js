@@ -7,23 +7,7 @@ const apiBase = axios.create({
 const api = {
   game: ({ shootsNumber }) =>
     apiBase.get("/start", { params: { targets: shootsNumber } }),
-
-  // deleteRecipe: ({ id }) => apiBase.delete("/recipes", { data: { id } }),
-  // recipe: ({ id }) => apiBase.get(`/recipes/${id}`),
-
-  // addRecipe: ({ recipeName, recipeBody, ingredients }) =>
-  //   apiBase.post("/recipes", {
-  //     recipeName,
-  //     recipeBody,
-  //     ingredients,
-  //   }),
-  // editRecipe: ({ recipeId, recipeName, recipeBody, ingredients }) =>
-  //   apiBase.put("/recipes", {
-  //     recipeId,
-  //     recipeName,
-  //     recipeBody,
-  //     ingredients,
-  //   }),
+  results: ({ results }) => apiBase.get(`/start/${results}`),
 };
 
 export default api;

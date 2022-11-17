@@ -8,11 +8,12 @@ import {
   Text,
   Button,
 } from "@chakra-ui/react";
+import { startGameApi } from "../../services/utils/gameStart";
 
-const GameParameters = ({ setGameOn, setShootsNumber, startGame }) => {
+const GameParameters = ({ setGameOn, shootsNumber, setShootsNumber }) => {
   const onStart = () => {
     setGameOn(true);
-    startGame();
+    startGameApi(shootsNumber);
   };
 
   return (
