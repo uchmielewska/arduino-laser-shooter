@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Table,
   Thead,
@@ -11,17 +10,34 @@ import {
   Flex,
   Button,
   Text,
+  Heading,
 } from "@chakra-ui/react";
+import useResult from "../../services/utils/useResult";
+import { useState, useEffect } from "react";
+// import arrayShuffle from "array-shuffle";
 
-const ResultsTable = ({
-  setGameOn,
-  shootsNumber,
-  isGameFinished,
-  goodShoots,
-  setGoodShoots,
-  badShoots,
-  setBadShoots,
-}) => {
+const ResultsTable = ({ setGameOn, shootsNumber, isGameFinished }) => {
+  const [goodShoots, setGoodShoots] = useState(0);
+  const [badShoots, setBadShoots] = useState(0);
+
+  // const goodMessages = ["Nice Shoot!", "Wow!", "What a shooter!"];
+  // const badMessages = ["Boo :(", "Do not give up!", "Try better next time!"];
+
+  const [displayMessage, setDisplayMessage] = useState("Good luck!");
+  const [showElement, setShowElement] = useState(true);
+
+  const [result] = useResult();
+
+  useEffect(() => {
+    console.log("result", result);
+  }, [result]);
+
+  useEffect(() => {
+    setTimeout(function () {
+      setShowElement(false);
+    }, 2000);
+  }, []);
+
   return (
     <Flex
       justifyContent="center"
@@ -49,6 +65,8 @@ const ResultsTable = ({
           </Tbody>
         </Table>
       </TableContainer>
+
+      {showElement && <Heading>{displayMessage}</Heading>}
 
       <Button mt={450} onClick={() => isGameFinished && setGameOn(false)}>
         Restart game

@@ -7,7 +7,7 @@ const apiBase = axios.create({
 const api = {
   game: ({ shootsNumber }) =>
     apiBase.get("/start", { params: { targets: shootsNumber } }),
-  results: ({ results }) => apiBase.get(`/start/${results}`),
+  result: () => apiBase.get("/result"),
 };
 
 export default api;
