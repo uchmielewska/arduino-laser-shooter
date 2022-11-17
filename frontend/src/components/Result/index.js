@@ -12,9 +12,9 @@ import {
   Text,
   Heading,
 } from "@chakra-ui/react";
-import useResult from "../../services/utils/useResult";
 import { useState, useEffect } from "react";
 // import arrayShuffle from "array-shuffle";
+import useResult from "../../services/utils/useResult";
 
 const ResultsTable = ({ setGameOn, shootsNumber, isGameFinished }) => {
   const [goodShoots, setGoodShoots] = useState(0);
@@ -29,7 +29,9 @@ const ResultsTable = ({ setGameOn, shootsNumber, isGameFinished }) => {
   const [result] = useResult();
 
   useEffect(() => {
-    console.log("result", result);
+    if (result) {
+      console.log("result", result);
+    }
   }, [result]);
 
   useEffect(() => {
