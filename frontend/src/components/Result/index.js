@@ -1,47 +1,55 @@
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
-  TableContainer,
-  Flex,
-  Button,
-  Text,
-  Heading,
-} from "@chakra-ui/react";
+import { Flex, Button, Heading } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import arrayShuffle from "array-shuffle";
 import api from "../../services/api";
+import ResultSummary from "../ResultSummary";
+import ResultTable from "../ResultTable";
 
-const ResultsTable = ({ setGameOn, shootsNumber, isGameFinished }) => {
+const Result = ({ setGameOn, shootsNumber, userName }) => {
   const [goodShoots, setGoodShoots] = useState(0);
   const [badShoots, setBadShoots] = useState(0);
 
   const [result, setResult] = useState({ hit: 0, miss: 0 });
   const [sumShoots, setSumShoots] = useState(0);
 
-  const goodMessages = ["Nice Shoot!", "Wow!", "What a shooter!"];
-  const badMessages = ["Boo :(", "Do not give up!", "Try better next time!"];
+  const goodMessages = [
+    "Nice Shoot!",
+    "Wow!",
+    "What a shooter!",
+    "Your the best!",
+  ];
+  const badMessages = [
+    "Boo :(",
+    "Do not give up!",
+    "Try better next time!",
+    "Your the worst...",
+  ];
 
   const [displayMessage, setDisplayMessage] = useState("Good luck!");
   const [showElement, setShowElement] = useState(true);
 
+  const [isGameFinished, setIsGameFinished] = useState(false);
+
   const MINUTE_MS = 1000;
 
   useEffect(() => {
-    if (sumShoots != shootsNumber) {
-      const interval = setInterval(async () => {
-        const response = await api.result();
-        if (response.status) {
-          setResult(response.data);
-          console.log("result", response.data);
-        }
-      }, MINUTE_MS);
+    if (!isGameFinished) {
+      if (sumShoots !== shootsNumber) {
+        const interval = setInterval(async () => {
+          const response = await api.result();
+          if (response.status) {
+            setResult(response.data);
+          }
+        }, MINUTE_MS);
 
-      return () => clearInterval(interval);
+        return () => clearInterval(interval);
+      } else {
+        setIsGameFinished(true);
+
+        goodShoots > badShoots
+          ? setDisplayMessage("Fantastic result!")
+          : setDisplayMessage("Next time will be better!");
+      }
     }
   }, []);
 
@@ -52,13 +60,13 @@ const ResultsTable = ({ setGameOn, shootsNumber, isGameFinished }) => {
   }, [result]);
 
   useEffect(() => {
-    if (goodShoots != 0) {
+    if (goodShoots !== 0) {
       setDisplayMessage(arrayShuffle(goodMessages)[0]);
     }
   }, [goodShoots]);
 
   useEffect(() => {
-    if (badShoots != 0) {
+    if (badShoots !== 0) {
       setDisplayMessage(arrayShuffle(badMessages)[0]);
     }
   }, [badShoots]);
@@ -75,35 +83,30 @@ const ResultsTable = ({ setGameOn, shootsNumber, isGameFinished }) => {
       direction="column"
       alignContent="space-between"
     >
-      <Text mt={10} color="pink.600" as="b">
-        Number of shoots: {shootsNumber}
-      </Text>
-
-      <TableContainer mt={10}>
-        <Table variant="simple">
-          <TableCaption>Game results</TableCaption>
-          <Thead>
-            <Tr>
-              <Th>Good</Th>
-              <Th>Bad</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <Tr>
-              <Td>{goodShoots}</Td>
-              <Td>{badShoots}</Td>
-            </Tr>
-          </Tbody>
-        </Table>
-      </TableContainer>
+      {isGameFinished ? (
+        <ResultSummary />
+      ) : (
+        <Flex
+          justifyContent="center"
+          direction="column"
+          alignContent="space-between"
+        >
+          <ResultTable
+            userName={userName}
+            shootsNumber={shootsNumber}
+            goodShoots={goodShoots}
+            badShoots={badShoots}
+          />
+        </Flex>
+      )}
 
       {showElement && <Heading position="absolute">{displayMessage}</Heading>}
 
-      <Button mt={450} onClick={() => isGameFinished && setGameOn(false)}>
+      <Button mt={400} onClick={() => isGameFinished && setGameOn(false)}>
         Restart game
       </Button>
     </Flex>
   );
 };
 
-export default ResultsTable;
+export default Result;

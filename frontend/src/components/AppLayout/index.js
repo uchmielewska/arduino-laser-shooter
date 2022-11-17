@@ -6,12 +6,9 @@ import api from "../../services/api";
 
 const AppLayout = () => {
   const [isGameOn, setGameOn] = useState(false);
-  const [isGameFinished, setGameFinished] = useState(false);
 
   const [shootsNumber, setShootsNumber] = useState(15);
   const [userName, setUserName] = useState("");
-
-  console.log("userName", userName);
 
   const startGame = async () => {
     return api.game({
@@ -26,7 +23,7 @@ const AppLayout = () => {
         <ResultsTable
           setGameOn={setGameOn}
           shootsNumber={shootsNumber}
-          isGameFinished={isGameFinished}
+          userName={userName}
         />
       ) : (
         <GameParameters
