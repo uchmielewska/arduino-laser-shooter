@@ -10,9 +10,10 @@ const AppLayout = () => {
 
   const [shootsNumber, setShootsNumber] = useState(15);
 
-  const onGameStart = () => {
-    setGameOn(true);
-    // startGameApi(shootsNumber);
+  const startGame = async () => {
+    return api.game({
+      targetNumber: shootsNumber,
+    });
   };
 
   return (
@@ -26,7 +27,8 @@ const AppLayout = () => {
         />
       ) : (
         <GameParameters
-          onGameStart={onGameStart}
+          setGameOn={setGameOn}
+          startGame={startGame}
           setShootsNumber={setShootsNumber}
         />
       )}

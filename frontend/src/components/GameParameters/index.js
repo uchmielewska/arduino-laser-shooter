@@ -9,7 +9,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 
-const GameParameters = ({ onGameStart, setShootsNumber }) => {
+const GameParameters = ({ startGame, setGameOn, setShootsNumber }) => {
   return (
     <Flex
       justifyContent="center"
@@ -34,7 +34,13 @@ const GameParameters = ({ onGameStart, setShootsNumber }) => {
         </NumberInputStepper>
       </NumberInput>
 
-      <Button m="4" onClick={onGameStart}>
+      <Button
+        m="4"
+        onClick={() => {
+          startGame();
+          setGameOn();
+        }}
+      >
         Start Game
       </Button>
     </Flex>
