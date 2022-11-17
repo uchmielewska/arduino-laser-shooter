@@ -29,7 +29,7 @@ boolean enableShootingTarget(int servoId)
     {
         delay(1);
 
-        if (analogRead(servoId) > 890)
+        if (analogRead(servoId) > 900)
             return true;
     }
 
@@ -74,8 +74,11 @@ void loop()
     {
         response = Serial.readStringUntil('\n');
 
-        if (response.equals("start"))
-            gameLoop(10);
+        String startString = response.substring(0, 5);
+        String targetsString = response.substring(6);
+
+        if (startString.equals("start"))
+            gameLoop(targetsString.toInt());
 
         delay(100);
     }
