@@ -7,6 +7,7 @@ import {
   Flex,
   Text,
   Button,
+  Input,
 } from "@chakra-ui/react";
 
 const GameParameters = ({ startGame, setGameOn, setShootsNumber }) => {
@@ -16,7 +17,12 @@ const GameParameters = ({ startGame, setGameOn, setShootsNumber }) => {
       direction="column"
       alignContent="space-between"
     >
-      <Text m="2" color="pink.600" as="b">
+      <Text my="2" color="pink.600" as="b">
+        Enter your name
+      </Text>
+      <Input placeholder="Name" size="lg" />
+
+      <Text my="2" color="pink.600" as="b">
         Set number of shoots
       </Text>
       <NumberInput
