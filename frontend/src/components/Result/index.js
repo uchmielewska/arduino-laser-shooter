@@ -36,7 +36,7 @@ const ResultsTable = ({ setGameOn, shootsNumber, isGameFinished }) => {
     if (sumShoots != shootsNumber) {
       setCurrentResult(useResult());
     }
-  }, [result]);
+  }, [result, currentResult]);
 
   console.log("currentResult", currentResult);
 
