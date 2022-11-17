@@ -13,10 +13,15 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-const ResultsTable = ({ setGameOn, shootsNumber, isGameFinished }) => {
-  const [goodShoots, setGoodShoots] = useState(0);
-  const [badShoots, setBadShoots] = useState(0);
-
+const ResultsTable = ({
+  setGameOn,
+  shootsNumber,
+  isGameFinished,
+  goodShoots,
+  setGoodShoots,
+  badShoots,
+  setBadShoots,
+}) => {
   return (
     <Flex
       justifyContent="center"
