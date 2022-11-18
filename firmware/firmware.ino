@@ -52,8 +52,6 @@ void gameLoop(int numberOfTargets = 20)
         int targetDelay = random(1, 6) * 1000;
         delay(targetDelay);
     }
-
-    Serial.write('e');
 }
 
 void setup()
@@ -61,7 +59,7 @@ void setup()
     whiteServo.attach(WHITE);
     greenServo.attach(GREEN);
 
-    Serial.begin(9600);
+    Serial.begin(19200);
 
     randomSeed(analogRead(0));
 }
