@@ -12,14 +12,20 @@ import {
   Heading,
 } from "@chakra-ui/react";
 
-const ResultTable = ({ userName, shootsNumber, goodShoots, badShoots }) => {
+const ResultTable = ({
+  userName,
+  shootsNumber,
+  goodShoots,
+  badShoots,
+  sumShoots,
+}) => {
   return (
     <Flex direction="column">
       <Heading mt={10} color="pink.600" as="i">
         Go {userName}! Go! Go!
       </Heading>
       <Text mt={10} color="pink.600" as="b">
-        Number of shoots: {shootsNumber}
+        Shooting progress: {sumShoots}/{shootsNumber}
       </Text>
       <TableContainer mt={10}>
         <Table variant="simple">

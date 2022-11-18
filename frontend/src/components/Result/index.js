@@ -16,14 +16,14 @@ const Result = ({ setGameOn, shootsNumber, userName }) => {
     "Nice Shoot!",
     "Wow!",
     "What a shooter!",
-    "Your the best!",
+    "You are the best!",
     "Athens teacher is the best",
   ];
   const badMessages = [
     "Boo :(",
     "Do not give up!",
     "Try better next time!",
-    "Your the worst...",
+    "You are the worst...",
     "Do not worry! Christmas is comming",
   ];
 
@@ -35,40 +35,47 @@ const Result = ({ setGameOn, shootsNumber, userName }) => {
   const MINUTE_MS = 1000;
 
   useEffect(() => {
-    if (!isGameFinished) {
-      if (sumShoots !== shootsNumber) {
-        const interval = setInterval(async () => {
+    if (!isGameFinished && sumShoots !== shootsNumber) {
+      console.log("isGameFinished", isGameFinished);
+      console.log("sumShoots", sumShoots);
+
+      const interval = setInterval(async () => {
+        console.log("interval", sumShoots, isGameFinished);
+
+        if (sumShoots !== shootsNumber) {
           const response = await api.result();
           if (response.status) {
             setResult(response.data);
           }
-        }, MINUTE_MS);
+        } else {
+          setIsGameFinished(true);
 
-        return () => clearInterval(interval);
-      } else {
-        setIsGameFinished(true);
+          goodShoots > badShoots
+            ? setDisplayMessage("Fantastic result!")
+            : setDisplayMessage("Next time will be better!");
 
-        goodShoots > badShoots
-          ? setDisplayMessage("Fantastic result!")
-          : setDisplayMessage("Next time will be better!");
-      }
+          clearInterval(interval);
+        }
+      }, MINUTE_MS);
+
+      return () => clearInterval(interval);
     }
   }, []);
 
   useEffect(() => {
     setGoodShoots(result.hit);
     setBadShoots(result.miss);
-    setSumShoots(result.miss + result.hit);
+    setSumShoots(Number(result.miss) + Number(result.hit));
   }, [result]);
 
   useEffect(() => {
-    if (goodShoots !== 0) {
+    if (Number(goodShoots) !== 0) {
       setDisplayMessage(arrayShuffle(goodMessages)[0]);
     }
   }, [goodShoots]);
 
   useEffect(() => {
-    if (badShoots !== 0) {
+    if (Number(badShoots) !== 0) {
       setDisplayMessage(arrayShuffle(badMessages)[0]);
     }
   }, [badShoots]);
@@ -86,7 +93,11 @@ const Result = ({ setGameOn, shootsNumber, userName }) => {
       alignContent="space-between"
     >
       {isGameFinished ? (
-        <ResultSummary />
+        <ResultSummary
+          userName={userName}
+          goodShoots={goodShoots}
+          badShoots={badShoots}
+        />
       ) : (
         <Flex
           justifyContent="center"
@@ -98,6 +109,7 @@ const Result = ({ setGameOn, shootsNumber, userName }) => {
             shootsNumber={shootsNumber}
             goodShoots={goodShoots}
             badShoots={badShoots}
+            sumShoots={sumShoots}
           />
         </Flex>
       )}
